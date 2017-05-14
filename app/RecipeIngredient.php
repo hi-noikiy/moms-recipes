@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class RecipeIngredient extends Model
+class RecipeIngredient extends Pivot
 {
-    //
+    protected $table = 'ingredient_recipe';
 }

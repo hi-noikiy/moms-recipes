@@ -1,4 +1,6 @@
 <?php
+use App\Recipe;
+use App\Ingredient;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,5 +22,23 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+    ];
+});
+
+$factory->define(App\Recipe::class, function ($faker) {
+    return [
+        'title' => $faker->sentence,
+        'description' => $faker->paragraph,
+        'slug' => $faker->slug,
+        'user_id' => function() {
+            return factory('App\User')->create()->id;
+        }
+    ];
+});
+
+$factory->define(App\Ingredient::class, function($faker) {
+    return [
+        'name' => "$faker->colorName $faker->word" ,
+        'notes' => $faker->paragraph
     ];
 });

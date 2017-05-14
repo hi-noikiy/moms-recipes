@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Recipe extends Model
 {
-    //
+
+    public function ingredients() {
+        return $this->belongsToMany('App\Ingredient')->withPivot('quantity', 'unit');
+    }
 }

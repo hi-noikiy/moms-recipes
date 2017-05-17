@@ -19,6 +19,8 @@ class ReadRecipesTest extends TestCase
 
         $this->recipe = factory('App\Recipe')->create();
 
+        factory('App\Step', 1)->create(['recipe_id' => $this->recipe->id]);
+
         $ingredients->each( function($i) {
             $this->recipe->ingredients()->attach([
                 $i->id => ['quantity' => 1, 'unit' => 'tsp', 'notes' => '']
@@ -37,7 +39,7 @@ class ReadRecipesTest extends TestCase
     /** @test */
     public function a_user_can_view_a_recipe()
     {
-        $response = $this->get('/recipes/' . $this->recipe->id);
+        $response = $this->get($this->recipe->path());
 
         $response->assertSee($this->recipe->title);
     }
@@ -45,8 +47,16 @@ class ReadRecipesTest extends TestCase
     /** @test */
     public function a_user_can_see_ingredients_associated_with_a_recipe()
     {
-        $response = $this->get('/recipes/' . $this->recipe->id);
+        $response = $this->get($this->recipe->path());
 
         $response->assertSee($this->recipe->ingredients()->first()->name);
+    }
+
+    /** @test */
+    public function a_user_can_see_steps_associated_with_a_recipe()
+    {
+        $response = $this->get($this->recipe->path());
+
+        $response->assertSee($this->recipe->steps()->first()->body);
     }
 }

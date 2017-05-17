@@ -17,13 +17,15 @@ class RecipeTest extends TestCase
         parent::setUp();
 
         $user = factory('App\User')->create();
-        $ingredients = factory('App\Ingredient', 5)->create();
+        $ingredients = factory('App\Ingredient', 1)->create();
 
         $this->recipe = factory('App\Recipe')->create();
 
+        factory('App\Step', 1)->create(['recipe_id' => $this->recipe->id]);
+
         $ingredients->each( function($i) {
             $this->recipe->ingredients()->attach([
-                $i->id => ['quantity' => 1, 'unit' => 'tsp']
+                $i->id => ['quantity' => 1, 'unit' => 'tsp', 'notes' => '']
             ]);
         });
     }
@@ -40,5 +42,12 @@ class RecipeTest extends TestCase
         $this->assertInstanceOf('App\Ingredient', $ingredient);
         $this->assertEquals(1, $ingredient->pivot->quantity);
         $this->assertEquals('tsp', $ingredient->pivot->unit);
+        $this->assertEquals('', $ingredient->pivot->notes);
+    }
+
+    /** @test */
+    public function it_has_a_step() {
+        $step = $this->recipe->steps->first();
+        $this->assertInstanceOf('App\Step', $step);
     }
 }

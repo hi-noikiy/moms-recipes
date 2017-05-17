@@ -21,7 +21,7 @@ class ReadRecipesTest extends TestCase
 
         $ingredients->each( function($i) {
             $this->recipe->ingredients()->attach([
-                $i->id => ['quantity' => 1, 'unit' => 'tsp']
+                $i->id => ['quantity' => 1, 'unit' => 'tsp', 'notes' => '']
             ]);
         });
     }

@@ -14,7 +14,8 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        //
+        $recipes = Recipe::latest()->get();
+        return view('recipes.index', compact('recipes'));
     }
 
     /**
@@ -44,9 +45,9 @@ class RecipeController extends Controller
      * @param  \App\recipe  $recipe
      * @return \Illuminate\Http\Response
      */
-    public function show(recipe $recipe)
+    public function show(Recipe $recipe)
     {
-        //
+        return view('recipes.show', compact('recipe'));
     }
 
     /**
@@ -55,7 +56,7 @@ class RecipeController extends Controller
      * @param  \App\recipe  $recipe
      * @return \Illuminate\Http\Response
      */
-    public function edit(recipe $recipe)
+    public function edit(Recipe $recipe)
     {
         //
     }
@@ -67,7 +68,7 @@ class RecipeController extends Controller
      * @param  \App\recipe  $recipe
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, recipe $recipe)
+    public function update(Request $request, Recipe $recipe)
     {
         //
     }
@@ -78,7 +79,7 @@ class RecipeController extends Controller
      * @param  \App\recipe  $recipe
      * @return \Illuminate\Http\Response
      */
-    public function destroy(recipe $recipe)
+    public function destroy(Recipe $recipe)
     {
         //
     }

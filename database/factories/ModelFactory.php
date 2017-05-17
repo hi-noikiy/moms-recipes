@@ -41,3 +41,9 @@ $factory->define(App\Ingredient::class, function($faker) {
         'name' => "$faker->colorName $faker->word"
     ];
 });
+
+$factory->define(App\Step::class, function($faker) {
+    return [
+        'body' => $faker->sentence
+    ];
+});

@@ -9,13 +9,17 @@ class ReadRecipesTest extends TestCase
 {
     use DatabaseMigrations;
 
+    protected $recipe;
+
     public function setUp() {
         parent::setUp();
 
+        $user = factory('App\User')->create();
+        $ingredients = factory('App\Ingredient', 5)->create();
+
         $this->recipe = factory('App\Recipe')->create();
-        $this->user = factory('App\User')->create();
-        $this->ingredients = factory('App\Ingredient', 5)->create();
-        $this->ingredients->each( function($i) {
+
+        $ingredients->each( function($i) {
             $this->recipe->ingredients()->attach([
                 $i->id => ['quantity' => 1, 'unit' => 'tsp']
             ]);

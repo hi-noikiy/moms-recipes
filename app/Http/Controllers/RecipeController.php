@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Recipe;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RecipeController extends Controller
 {
@@ -36,7 +37,14 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+        $recipe = new Recipe;
+
+        $recipe->title = $request->title;
+        $recipe->description = $request->description;
+        $recipe->slug = str_slug($recipe->title, '-');
+
+        $user->recipes()->save($recipe);
     }
 
     /**

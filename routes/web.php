@@ -21,3 +21,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/recipes', 'RecipeController@index');
 Route::get('/recipes/{recipe}', 'RecipeController@show');
+
+Route::post('/recipes', 'RecipeController@store');

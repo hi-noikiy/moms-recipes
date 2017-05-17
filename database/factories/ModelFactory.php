@@ -38,7 +38,6 @@ $factory->define(App\Recipe::class, function ($faker) {
 
 $factory->define(App\Ingredient::class, function($faker) {
     return [
-        'name' => "$faker->colorName $faker->word" ,
-        'notes' => $faker->paragraph
+        'name' => "$faker->colorName $faker->word"
     ];
 });

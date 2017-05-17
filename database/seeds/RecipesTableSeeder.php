@@ -18,8 +18,11 @@ class RecipesTableSeeder extends Seeder {
 
                 foreach($ingredient_list as $i) {
                     $r->ingredients()->attach([$i =>
-                        ['quantity' => $faker->randomDigit,
-                        'unit' => $faker->randomElement($units)]
+                        [
+                            'quantity' => $faker->randomDigit,
+                            'unit' => $faker->randomElement($units),
+                            'notes' => $faker->sentence
+                        ]
                     ]);
                 }
             });

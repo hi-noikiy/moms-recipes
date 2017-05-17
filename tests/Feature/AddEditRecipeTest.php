@@ -28,4 +28,19 @@ class AddEditRecipeTest extends TestCase
         $this->get($recipe->path())
                 ->assertSee($recipe->title);
     }
+
+    /** @test */
+    public function an_authenticated_user_can_add_ingredient_to_recipe() {
+        $this->be($this->user);
+
+        $ingredient = factory('App\Ingredient')->make();
+
+        $recipe = factory('App\Recipe')->create();
+        $this->user->recipes()->save($recipe);
+
+        $this->post($recipe->path(), $ingredient->toArray());
+
+        $this->get($recipe->path())
+            ->assertSee($ingredient->name);
+    }
 }

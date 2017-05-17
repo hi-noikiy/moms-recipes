@@ -19,6 +19,7 @@ class CreateIngredientRecipePivotTable extends Migration
             $table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');
             $table->primary(['ingredient_id', 'recipe_id']);
             $table->float('quantity');
+            $table->text('notes');
             $table->string('unit');
         });
     }

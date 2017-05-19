@@ -42,9 +42,6 @@ class AddEditIngredientTest extends TestCase
         $this->user->recipes()->save($recipe);
 
         $this->be(factory('App\User')->create());
-        $this->post($recipe->path() . '/ingredients', ['id' => $ingredient->id, 'quantity' => 99, 'unit' => 'C', 'notes' => 'zzz']);
-
-        $this->get($recipe->path())
-            ->assertSee($ingredient->name);
+        $this->post($recipe->path() . '/ingredients', []);
     }
 }

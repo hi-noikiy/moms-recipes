@@ -27,4 +27,8 @@ class Recipe extends Model
         $this->ingredients()->attach($ingredient->id, compact('quantity', 'unit', 'notes'));
 
     }
+
+    public function addStep($body) {
+        $this->steps()->create(compact('body'));
+    }
 }

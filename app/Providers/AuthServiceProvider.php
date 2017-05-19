@@ -28,5 +28,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('add-ingredient', function ($user, $recipe) {
             return $user->id == $recipe->user_id;
         });
+
+        Gate::define('add-step', function ($user, $recipe) {
+            return $user->id == $recipe->user_id;
+        });
     }
 }

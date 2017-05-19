@@ -35,7 +35,9 @@ class StepController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $recipe->addStep($request->body);
+
+        return back();
     }
 
     /**

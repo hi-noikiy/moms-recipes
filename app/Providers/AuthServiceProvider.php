@@ -25,6 +25,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('add-ingredient', function ($user, $recipe) {
+            return $user->id == $recipe->user_id;
+        });
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Ingredient;
+use App\Recipe;
 use Illuminate\Http\Request;
 
 class IngredientController extends Controller
@@ -33,9 +34,13 @@ class IngredientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Recipe $recipe)
     {
-        //
+        $ingredient = Ingredient::findOrFail(request('id'));
+
+        $recipe->addIngredient($ingredient, request('quantity'), request('unit'), request('notes'));
+
+        return back();
     }
 
     /**

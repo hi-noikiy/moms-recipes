@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Gate;
 
 class Recipe extends Model
 {
@@ -20,5 +21,10 @@ class Recipe extends Model
 
     public function ingredients() {
         return $this->belongsToMany('App\Ingredient')->withPivot('quantity', 'unit', 'notes');
+    }
+
+    public function addIngredient($ingredient, $quantity, $unit, $notes) {
+        $this->ingredients()->attach($ingredient->id, compact('quantity', 'unit', 'notes'));
+
     }
 }

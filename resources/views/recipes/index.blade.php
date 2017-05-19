@@ -2,6 +2,19 @@
 
 @section('content')
 <div class="container">
+
+    @if (auth()->check())
+        <div class="row">
+            <div class="col s8 offset-s2">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Add Recipe</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <div class="row">
         <div class="col s8 offset-s2">
             <div class="card">
@@ -21,6 +34,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>>
 </div>
 @endsection

@@ -22,4 +22,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/recipes', 'RecipeController@index');
 Route::get('/recipes/{recipe}', 'RecipeController@show');
 
-Route::post('/recipes', 'RecipeController@store');
+Route::post('/recipes/{recipe}/ingredients', 'IngredientController@store')->middleware('can:add-ingredient,recipe');
+Route::post('/recipes', 'RecipeController@store')->middleware('auth');

@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 
 class RecipeController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *

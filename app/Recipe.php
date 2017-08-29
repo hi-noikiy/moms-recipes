@@ -20,7 +20,7 @@ class Recipe extends Model
     }
 
     public function ingredients() {
-        return $this->belongsToMany('App\Ingredient')->withPivot('quantity', 'unit', 'notes');
+        return $this->belongsToMany('App\Ingredient')->withPivot('quantity', 'unit', 'notes')->using('App\RecipeIngredient');
     }
 
     public function addIngredient($ingredient, $quantity, $unit, $notes) {

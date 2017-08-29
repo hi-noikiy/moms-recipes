@@ -23,7 +23,6 @@ class AddEditStepTest extends TestCase
         $this->be($this->user);
 
         $step = factory('App\Step')->make();
-
         $recipe = factory('App\Recipe')->create();
         $this->user->recipes()->save($recipe);
 

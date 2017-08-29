@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Step;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Recipe;
 
 class StepController extends Controller
 {
@@ -33,11 +35,9 @@ class StepController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Recipe $recipe)
     {
         $recipe->addStep($request->body);
-
-        return back();
     }
 
     /**

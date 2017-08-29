@@ -6,7 +6,7 @@ use App\Ingredient;
 use App\Recipe;
 use Illuminate\Http\Request;
 
-class IngredientController extends Controller
+class RecipeIngredientController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,7 +36,11 @@ class IngredientController extends Controller
      */
     public function store(Recipe $recipe)
     {
+        $ingredient = Ingredient::findOrFail(request('id'));
 
+        $recipe->addIngredient($ingredient, request('quantity'), request('unit'), request('notes'));
+
+        return back();
     }
 
     /**
@@ -45,7 +49,7 @@ class IngredientController extends Controller
      * @param  \App\Ingredient  $ingredient
      * @return \Illuminate\Http\Response
      */
-    public function show(Ingredient $ingredient)
+    public function show(RecipeIngredient $ingredient)
     {
         //
     }
@@ -56,7 +60,7 @@ class IngredientController extends Controller
      * @param  \App\Ingredient  $ingredient
      * @return \Illuminate\Http\Response
      */
-    public function edit(Ingredient $ingredient)
+    public function edit(RecipeIngredient $ingredient)
     {
         //
     }
@@ -68,7 +72,7 @@ class IngredientController extends Controller
      * @param  \App\Ingredient  $ingredient
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ingredient $ingredient)
+    public function update(Request $request, RecipeIngredient $ingredient)
     {
         //
     }
@@ -79,7 +83,7 @@ class IngredientController extends Controller
      * @param  \App\Ingredient  $ingredient
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Ingredient $ingredient)
+    public function destroy(RecipeIngredient $ingredient)
     {
         //
     }

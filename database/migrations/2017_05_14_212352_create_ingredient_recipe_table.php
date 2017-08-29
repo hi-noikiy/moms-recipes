@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateIngredientRecipePivotTable extends Migration
+class CreateIngredientRecipeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +14,13 @@ class CreateIngredientRecipePivotTable extends Migration
     public function up()
     {
         Schema::create('ingredient_recipe', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('ingredient_id')->unsigned()->index();
             $table->foreign('ingredient_id')->references('id')->on('ingredients')->onDelete('cascade');
             $table->integer('recipe_id')->unsigned()->index();
             $table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');
-            $table->primary(['ingredient_id', 'recipe_id']);
             $table->float('quantity');
-            $table->text('notes');
+            $table->text('notes')->nullable();
             $table->string('unit');
         });
     }
@@ -31,6 +32,6 @@ class CreateIngredientRecipePivotTable extends Migration
      */
     public function down()
     {
-        Schema::drop('ingredient_recipe');
+        Schema::dropIfExists('ingredient_recipe');
     }
 }

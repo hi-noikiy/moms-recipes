@@ -16,7 +16,8 @@ class RecipeTest extends TestCase
     public function setUp() {
         parent::setUp();
 
-        $user = create('App\User');
+        $this->signIn();
+        
         $ingredients = factory('App\Ingredient', 1)->create();
 
         $this->recipe = create('App\Recipe');

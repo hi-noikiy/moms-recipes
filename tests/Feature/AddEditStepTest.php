@@ -20,7 +20,7 @@ class AddEditStepTest extends TestCase
 
     /** @test */
     public function an_authenticated_user_can_add_step_to_their_recipe() {
-        $this->be($this->user);
+        $this->signIn($this->user);
 
         $step = make('App\Step');
         $recipe = create('App\Recipe');

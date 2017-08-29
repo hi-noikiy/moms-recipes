@@ -20,7 +20,7 @@ class AddEditIngredientTest extends TestCase
 
     /** @test */
     public function an_authenticated_user_can_add_ingredient_to_their_recipe() {
-        $this->be($this->user);
+        $this->signIn($this->user);
 
         $ingredient = create('App\Ingredient');
 

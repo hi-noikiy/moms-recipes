@@ -20,7 +20,7 @@ class AddEditRecipeTest extends TestCase
 
     /** @test */
     public function an_authenticated_user_can_add_a_recipe() {
-        $this->be($this->user);
+        $this->signIn($this->user);
 
         $recipe = make('App\Recipe');
         $this->post('/recipes', $recipe->toArray());

@@ -16,10 +16,10 @@ class RecipeTest extends TestCase
     public function setUp() {
         parent::setUp();
 
-        $user = factory('App\User')->create();
+        $user = create('App\User');
         $ingredients = factory('App\Ingredient', 1)->create();
 
-        $this->recipe = factory('App\Recipe')->create();
+        $this->recipe = create('App\Recipe');
 
         factory('App\Step', 1)->create(['recipe_id' => $this->recipe->id]);
 

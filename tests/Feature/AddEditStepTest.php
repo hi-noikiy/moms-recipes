@@ -15,15 +15,15 @@ class AddEditStepTest extends TestCase
     public function setUp() {
         parent::setUp();
 
-        $this->user = factory('App\User')->create();
+        $this->user = create('App\User');
     }
 
     /** @test */
     public function an_authenticated_user_can_add_step_to_their_recipe() {
         $this->be($this->user);
 
-        $step = factory('App\Step')->make();
-        $recipe = factory('App\Recipe')->create();
+        $step = make('App\Step');
+        $recipe = create('App\Recipe');
         $this->user->recipes()->save($recipe);
 
         $this->post($recipe->path() . '/steps', $step->toArray());
@@ -35,12 +35,12 @@ class AddEditStepTest extends TestCase
     /** @test */
     public function an_authenticated_user_can_not_add_step_to_other_recipe() {
         $this->expectException('Illuminate\Auth\Access\AuthorizationException');
-        $step = factory('App\Step')->make();
+        $step = make('App\Step');
 
-        $recipe = factory('App\Recipe')->create();
+        $recipe = create('App\Recipe');
         $this->user->recipes()->save($recipe);
 
-        $this->be(factory('App\User')->create());
+        $this->be(create('App\User'));
         $this->post($recipe->path() . '/steps', []);
     }
 }

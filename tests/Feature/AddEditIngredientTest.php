@@ -15,16 +15,16 @@ class AddEditIngredientTest extends TestCase
     public function setUp() {
         parent::setUp();
 
-        $this->user = factory('App\User')->create();
+        $this->user = create('App\User');
     }
 
     /** @test */
     public function an_authenticated_user_can_add_ingredient_to_their_recipe() {
         $this->be($this->user);
 
-        $ingredient = factory('App\Ingredient')->create();
+        $ingredient = create('App\Ingredient');
 
-        $recipe = factory('App\Recipe')->create();
+        $recipe = create('App\Recipe');
         $this->user->recipes()->save($recipe);
 
         $this->post($recipe->path() . '/ingredients', ['id' => $ingredient->id, 'quantity' => 99, 'unit' => 'C', 'notes' => 'zzz']);
@@ -36,12 +36,12 @@ class AddEditIngredientTest extends TestCase
     /** @test */
     public function an_authenticated_user_can_not_add_ingredient_to_other_recipe() {
         $this->expectException('Illuminate\Auth\Access\AuthorizationException');
-        $ingredient = factory('App\Ingredient')->create();
+        $ingredient = create('App\Ingredient');
 
-        $recipe = factory('App\Recipe')->create();
+        $recipe = create('App\Recipe');
         $this->user->recipes()->save($recipe);
 
-        $this->be(factory('App\User')->create());
+        $this->be(create('App\User'));
         $this->post($recipe->path() . '/ingredients', []);
     }
 }

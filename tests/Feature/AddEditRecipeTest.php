@@ -15,14 +15,14 @@ class AddEditRecipeTest extends TestCase
     public function setUp() {
         parent::setUp();
 
-        $this->user = factory('App\User')->create();
+        $this->user = create('App\User');
     }
 
     /** @test */
     public function an_authenticated_user_can_add_a_recipe() {
         $this->be($this->user);
 
-        $recipe = factory('App\Recipe')->make();
+        $recipe = make('App\Recipe');
         $this->post('/recipes', $recipe->toArray());
 
         $this->get($recipe->path())

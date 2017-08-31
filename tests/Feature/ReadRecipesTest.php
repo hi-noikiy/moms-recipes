@@ -11,7 +11,8 @@ class ReadRecipesTest extends TestCase
 
     protected $recipe;
 
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
 
         $this->signIn();
@@ -21,7 +22,7 @@ class ReadRecipesTest extends TestCase
 
         factory('App\Step', 1)->create(['recipe_id' => $this->recipe->id]);
 
-        $ingredients->each( function($i) {
+        $ingredients->each(function ($i) {
             $this->recipe->ingredients()->attach([
                 $i->id => ['quantity' => 1, 'unit' => 'tsp', 'notes' => '']
             ]);

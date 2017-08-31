@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Auth\AuthenticationException;
 
 class AddEditIngredientTest extends TestCase
 {
@@ -12,14 +11,20 @@ class AddEditIngredientTest extends TestCase
 
     protected $user;
 
-    public function setUp() {
+    public function test()
+    {
+    }
+
+    public function setUp()
+    {
         parent::setUp();
 
         $this->user = create('App\User');
     }
 
     /** @test */
-    public function an_authenticated_user_can_add_ingredient_to_their_recipe() {
+    public function an_authenticated_user_can_add_ingredient_to_their_recipe()
+    {
         $this->signIn($this->user);
 
         $ingredient = create('App\Ingredient');
@@ -34,7 +39,8 @@ class AddEditIngredientTest extends TestCase
     }
 
     /** @test */
-    public function an_authenticated_user_can_not_add_ingredient_to_other_recipe() {
+    public function an_authenticated_user_can_not_add_ingredient_to_other_recipe()
+    {
         $this->expectException('Illuminate\Auth\Access\AuthorizationException');
         $ingredient = create('App\Ingredient');
 

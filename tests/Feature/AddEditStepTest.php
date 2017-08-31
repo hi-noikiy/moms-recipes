@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Auth\AuthenticationException;
 
 class AddEditStepTest extends TestCase
 {
@@ -12,14 +11,16 @@ class AddEditStepTest extends TestCase
 
     protected $user;
 
-    public function setUp() {
+    public function setUp()
+    {
         parent::setUp();
 
         $this->user = create('App\User');
     }
 
     /** @test */
-    public function an_authenticated_user_can_add_step_to_their_recipe() {
+    public function an_authenticated_user_can_add_step_to_their_recipe()
+    {
         $this->signIn($this->user);
 
         $step = make('App\Step');
@@ -33,7 +34,8 @@ class AddEditStepTest extends TestCase
     }
 
     /** @test */
-    public function an_authenticated_user_can_not_add_step_to_other_recipe() {
+    public function an_authenticated_user_can_not_add_step_to_other_recipe()
+    {
         $this->expectException('Illuminate\Auth\Access\AuthorizationException');
         $step = make('App\Step');
 

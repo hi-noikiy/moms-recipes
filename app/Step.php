@@ -8,7 +8,8 @@ class Step extends Model
 {
     protected $fillable = ['body'];
 
-    public function recipe() {
+    public function recipe()
+    {
         return $this->belongsTo('App\Recipe');
     }
 }

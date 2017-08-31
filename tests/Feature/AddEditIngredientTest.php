@@ -11,10 +11,6 @@ class AddEditIngredientTest extends TestCase
 
     protected $user;
 
-    public function test()
-    {
-    }
-
     public function setUp()
     {
         parent::setUp();

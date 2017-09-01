@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class RecipeIngredientController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:add-ingredient,recipe')->only('store');
+    }
+
     /**
      * Display a listing of the resource.
      *

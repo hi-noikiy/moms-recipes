@@ -9,19 +9,10 @@ class AddEditRecipeTest extends TestCase
 {
     use DatabaseMigrations;
 
-    protected $user;
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->user = create('App\User');
-    }
-
     /** @test */
-    public function an_authenticated_user_can_add_a_recipe()
+    public function authenticated_user_can_add_a_recipe()
     {
-        $this->signIn($this->user);
+        $this->signIn();
 
         $recipe = make('App\Recipe');
         $this->post('/recipes', $recipe->toArray());
@@ -31,10 +22,10 @@ class AddEditRecipeTest extends TestCase
     }
 
     /** @test */
-    public function a_guest_cannot_add_a_recipe()
+    public function guest_cannot_add_a_recipe()
     {
-        $this->expectException('\Illuminate\Auth\AuthenticationException');
+        $this->withExceptionHandling();
 
-        $this->post('/recipes', []);
+        $this->post('/recipes', [])->assertRedirect('/login');
     }
 }

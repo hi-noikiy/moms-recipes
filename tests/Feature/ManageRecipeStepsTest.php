@@ -19,7 +19,7 @@ class AddEditStepTest extends TestCase
     }
 
     /** @test */
-    public function an_authenticated_user_can_add_step_to_their_recipe()
+    public function authorized_user_can_add_step_to_their_recipe()
     {
         $this->signIn($this->user);
 
@@ -34,17 +34,16 @@ class AddEditStepTest extends TestCase
     }
 
     /** @test */
-    public function an_authenticated_user_can_not_add_step_to_other_recipe()
+    public function unauthorized_user_can_not_add_step_to_other_recipe()
     {
-        $this->expectException('Illuminate\Auth\Access\AuthorizationException');
+        $this->withExceptionHandling();
 
         $step = make('App\Step');
         $recipe = create('App\Recipe');
 
-        $this->user->recipes()->save($recipe);
-
-        $this->be(create('App\User'));
-        $this->post($recipe->path() . '/steps', $step->toArray());
+        $this->post($recipe->path() . '/steps', $step->toArray())->assertRedirect('/login');
+        $this->signIn();
+        $this->post($recipe->path() . '/steps', $step->toArray())->assertStatus(403);
     }
 
     /** @test */

@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Step;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use App\Recipe;
 
 class StepController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:add-step,recipe')->only('store');
+    }
     /**
      * Display a listing of the resource.
      *

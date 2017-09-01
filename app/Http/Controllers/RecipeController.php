@@ -8,7 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class RecipeController extends Controller
 {
-
+    public function __construct()
+    {
+        $this->middleware('auth')->only('store');
+    }
 
     /**
      * Display a listing of the resource.

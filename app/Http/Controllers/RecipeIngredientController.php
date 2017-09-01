@@ -44,8 +44,6 @@ class RecipeIngredientController extends Controller
         $ingredient = Ingredient::findOrFail(request('id'));
 
         $recipe->addIngredient($ingredient, request('quantity'), request('unit'), request('notes'));
-
-        return back();
     }
 
     /**

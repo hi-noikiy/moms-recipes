@@ -3,30 +3,21 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class AddEditIngredientTest extends TestCase
 {
     use DatabaseMigrations;
 
-    protected $user;
-
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->user = create('App\User');
-    }
-
     /** @test */
-    public function an_authenticated_user_can_add_ingredient_to_their_recipe()
+    public function authorized_user_can_add_ingredient_to_their_recipe()
     {
-        $this->signIn($this->user);
+        $this->signIn();
 
         $ingredient = create('App\Ingredient');
-
-        $recipe = create('App\Recipe');
-        $this->user->recipes()->save($recipe);
+        $recipe = make('App\Recipe');
+        Auth::user()->recipes()->save($recipe);
 
         $this->post($recipe->path() . '/ingredients', ['id' => $ingredient->id, 'quantity' => 99, 'unit' => 'C', 'notes' => 'zzz']);
 
@@ -35,26 +26,16 @@ class AddEditIngredientTest extends TestCase
     }
 
     /** @test */
-    public function an_authenticated_user_can_not_add_ingredient_to_other_recipe()
+    public function unauthorized_user_cannot_add_ingredient_to_recipe()
     {
-        $this->expectException('Illuminate\Auth\Access\AuthorizationException');
+        $this->withExceptionHandling();
+
         $ingredient = create('App\Ingredient');
-
         $recipe = create('App\Recipe');
-        $this->user->recipes()->save($recipe);
+        $recipeIngredient = ['id' => $ingredient->id, 'quantity' => 99, 'unit' => 'C', 'notes' => 'zzz'];
 
-        $this->signIn(create('App\User'));
-        $this->post($recipe->path() . '/ingredients', []);
-    }
-
-    /** @test */
-    public function a_guest_cannot_add_ingredient_to_a_recipe()
-    {
-        $this->expectException('\Illuminate\Auth\AuthenticationException');
-
-        $recipe = create('App\Recipe');
-        $this->user->recipes()->save($recipe);
-
-        $this->post($recipe->path() . '/ingredients', []);
+        $this->post($recipe->path() . '/ingredients', $recipeIngredient)->assertRedirect('/login');
+        $this->signIn();
+        $this->post($recipe->path() . '/ingredients', $recipeIngredient)->assertStatus(403);
     }
 }

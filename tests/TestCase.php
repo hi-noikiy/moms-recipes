@@ -15,6 +15,7 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
         $this->disableExceptionHandling();
     }
+
     protected function disableExceptionHandling()
     {
         $this->oldExceptionHandler = $this->app->make(ExceptionHandler::class);
@@ -31,6 +32,7 @@ abstract class TestCase extends BaseTestCase
             }
         });
     }
+
     protected function withExceptionHandling()
     {
         $this->app->instance(ExceptionHandler::class, $this->oldExceptionHandler);

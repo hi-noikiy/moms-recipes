@@ -31,7 +31,7 @@ class AddEditRecipeTest extends TestCase
     }
 
     /** @test */
-    public function an_unauthenticated_user_can_not_add_a_recipe()
+    public function a_guest_cannot_add_a_recipe()
     {
         $this->expectException('\Illuminate\Auth\AuthenticationException');
 

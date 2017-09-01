@@ -43,7 +43,18 @@ class AddEditIngredientTest extends TestCase
         $recipe = create('App\Recipe');
         $this->user->recipes()->save($recipe);
 
-        $this->be(create('App\User'));
+        $this->signIn(create('App\User'));
+        $this->post($recipe->path() . '/ingredients', []);
+    }
+
+    /** @test */
+    public function a_guest_cannot_add_ingredient_to_a_recipe()
+    {
+        $this->expectException('\Illuminate\Auth\AuthenticationException');
+
+        $recipe = create('App\Recipe');
+        $this->user->recipes()->save($recipe);
+
         $this->post($recipe->path() . '/ingredients', []);
     }
 }

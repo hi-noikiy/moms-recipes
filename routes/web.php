@@ -26,3 +26,5 @@ Route::post('/recipes', 'RecipeController@store');
 
 Route::post('/recipes/{recipe}/ingredients', 'RecipeIngredientController@store');
 Route::post('/recipes/{recipe}/steps', 'StepController@store');
+
+Route::get('/ingredients', 'IngredientController@index');

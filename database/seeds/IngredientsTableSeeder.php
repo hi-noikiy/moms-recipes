@@ -1,11 +1,17 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Ingredient;
 
-class IngredientsTableSeeder extends Seeder {
-
+class IngredientsTableSeeder extends Seeder
+{
     public function run()
     {
-        factory('App\Ingredient', 25)->create();
+        $json = File::get('database/data/ingredients_raw.json');
+        $data = json_decode($json);
+
+        foreach ($data as $name) {
+            Ingredient::create(['name' => $name]);
+        }
     }
 }

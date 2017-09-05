@@ -4,7 +4,7 @@ This is a Laravel based application for creating and digitizing recipes. It is s
 
 ## TODO
 
-* Import basic ingredient data.
+* ~~Import basic ingredient data.~~
 * User profile page.
 * Image storage/attachment
 * CRUD

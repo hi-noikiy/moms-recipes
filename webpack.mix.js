@@ -12,4 +12,24 @@ const { mix } = require('laravel-mix');
  */
 
 mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+    .sass('resources/assets/sass/app.scss', 'public/css')
+    .browserSync('moms-recipes.app')
+    .extract([
+        'jquery',
+        'axios',
+        'vue',
+        'lodash',
+      ])
+      .autoload({
+        jquery: ['$', 'window.jQuery', 'jQuery'],
+        lodash: ['_', 'window._'],
+        vue: ['Vue', 'window.Vue'],
+        axios: ['axios', 'window.axios'],
+      })
+      .disableNotifications();
+
+if (mix.inProduction()) {
+    mix.version();
+}
+
+

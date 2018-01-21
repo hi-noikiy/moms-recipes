@@ -12,7 +12,7 @@ class RecipesTableSeeder extends Seeder {
         $units = ['C', 'Tbsp', 'tsp', 'g', 'ml'];
 
         // use pre-seeded users and ingredients to attach to recipes
-        $users = App\User::pluck('id')->all();
+        $users = App\Models\User::pluck('id')->all();
         $ingredients = App\Ingredient::pluck('id')->all();
 
         factory('App\Recipe', 20)->create([ 'user_id' => $users[ rand(0, count($users))] ])

@@ -8,7 +8,7 @@ $factory->define(App\Recipe::class, function ($faker) {
         'description' => $faker->paragraph,
         'slug' => $faker->slug,
         'user_id' => function () {
-            return factory('App\User')->create()->id;
+            return factory('App\Models\User')->create()->id;
         }
     ];
 });

@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Recipe::class, function ($faker) {
+$factory->define(App\Models\Recipe::class, function ($faker) {
     return [
         'title' => $faker->sentence,
         'description' => $faker->paragraph,

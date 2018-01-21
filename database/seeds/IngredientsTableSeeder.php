@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Ingredient;
+use App\Models\Ingredient;
 
 class IngredientsTableSeeder extends Seeder
 {

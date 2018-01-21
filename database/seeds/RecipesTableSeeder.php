@@ -13,9 +13,9 @@ class RecipesTableSeeder extends Seeder {
 
         // use pre-seeded users and ingredients to attach to recipes
         $users = App\Models\User::pluck('id')->all();
-        $ingredients = App\Ingredient::pluck('id')->all();
+        $ingredients = App\Models\Ingredient::pluck('id')->all();
 
-        factory('App\Recipe', 20)->create([ 'user_id' => $users[ rand(0, count($users))] ])
+        factory('App\Models\Recipe', 20)->create([ 'user_id' => $users[ rand(0, count($users))] ])
             ->each(function ($recipe) use ($faker, $ingredients, $units) {
 
                 // choose random ingredients
@@ -33,7 +33,7 @@ class RecipesTableSeeder extends Seeder {
                 }
 
                 // add some steps
-                factory('App\Step', 10)->create(['recipe_id' => $recipe->id]);
+                factory('App\Models\Step', 10)->create(['recipe_id' => $recipe->id]);
             });
     }
 }

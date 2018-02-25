@@ -15,13 +15,13 @@ const actions = {
         return new Promise((resolve, reject) => {
             commit(AUTH_LOGIN);
 
-            axios({url: 'auth', data: user, method: 'POST'})
+            axios({url: 'api/login', data: {...user, grant_type: 'password'}, method: 'POST'})
                 .then(response => {
                     const token = response.data.token;
                     localStorage.setItem('user-token', token);
                     axios.defaults.headers.common['Authorization'] = token;
                     commit(AUTH_SUCCESS, token);
-                    dispatch(USER_REQUEST);
+                    // dispatch(USER_REQUEST);
                     resolve(response);
                 })
                 .catch(err => {

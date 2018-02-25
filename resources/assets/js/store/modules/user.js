@@ -59,7 +59,7 @@ const mutations = {
         state.status = 'loading';
     },
     [AUTH_LOGOUT]: (state) => {
-        state.status = '';
+        state.status = 'guest';
     },
     [AUTH_SUCCESS]: (state, token) => {
         state.status = 'success';

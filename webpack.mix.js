@@ -30,6 +30,7 @@ if (mix.inProduction()) {
     mix.extract([
         'vue',
         'vuex',
+        'vue-spinner',
         'axios',
         'moment',
         '@fortawesome/fontawesome',

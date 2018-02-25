@@ -1,8 +1,11 @@
-import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_SUCCESS, AUTH_ERROR } from '~/store/mutation-types'
+import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_SUCCESS, AUTH_ERROR, USER_REQUEST } from '~/store/mutation-types'
 
 const state = {
     token: localStorage.getItem('user-token') || '',
-    status: ''
+    status: '',
+    name: '',
+    email: '',
+    id: null,
 }
 
 const getters = {
@@ -17,11 +20,11 @@ const actions = {
 
             axios({url: 'api/login', data: {...user, grant_type: 'password'}, method: 'POST'})
                 .then(response => {
-                    const token = response.data.token;
+                    const token = response.data.access_token;
                     localStorage.setItem('user-token', token);
-                    axios.defaults.headers.common['Authorization'] = token;
+                    axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
                     commit(AUTH_SUCCESS, token);
-                    // dispatch(USER_REQUEST);
+                    dispatch(USER_REQUEST);
                     resolve(response);
                 })
                 .catch(err => {
@@ -38,6 +41,16 @@ const actions = {
             delete axios.defaults.headers.common['Authorization'];
             resolve();
         })
+    },
+    [USER_REQUEST]: ({ commit }) => {
+        axios({ url: 'api/user', method: 'GET' })
+            .then(response => {
+                const user = response.data;
+                commit(USER_REQUEST, user);
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 }
 
@@ -55,6 +68,11 @@ const mutations = {
     [AUTH_ERROR]: (state) => {
         state.status = 'error';
     },
+    [USER_REQUEST]: (state, user) => {
+        state.name = user.name;
+        state.email = user.email;
+        state.id = user.id;
+    }
 }
 
 export default {

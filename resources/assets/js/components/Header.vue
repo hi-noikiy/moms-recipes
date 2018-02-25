@@ -1,6 +1,6 @@
 <template>
-    <nav class="flex items-start justify-between flex-wrap bg-grey-darkest py-2 px-4 h-full">
-        <div class="flex items-center flex-no-shrink text-grey mr-6">
+    <nav class="flex items-start justify-between flex-wrap py-2 px-4 h-full border-b-2 border-solid border-grey-dark">
+        <div class="flex items-center flex-no-shrink text-grey-darker mr-6">
             <span class="font-semibold text-3xl pl-2">{{ app.name }}</span>
         </div>
         <div class="block lg:hidden">

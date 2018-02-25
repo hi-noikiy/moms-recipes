@@ -1,10 +1,10 @@
 <template>
     <div class="app">
-        <div class="header">
+        <div class="header mb-4">
             <Header :app="app"></Header>
         </div>
 
-        <div class="flex flex-wrap main">
+        <div class="container mx-auto flex">
             <router-view :user="user"></router-view>
         </div>
     </div>

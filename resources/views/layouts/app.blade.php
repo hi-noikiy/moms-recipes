@@ -17,7 +17,7 @@
         window.__INITIAL_STATE__ = "{!! addslashes(json_encode($state)) !!}";
     </script>
 </head>
-<body>
+<body class="bg-grey-lightest">
 
     @yield('content')
 

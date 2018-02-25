@@ -4,9 +4,6 @@
             <span class="font-semibold text-3xl pl-2">{{ app.name }}</span>
         </div>
         <div class="block lg:hidden">
-            <button class="flex items-center px-3 py-2 border rounded text-teal-lighter border-teal-light hover:text-white hover:border-white">
-                menu
-            </button>
         </div>
         <div class="block flex-grow lg:flex lg:w-auto justify-end">
         </div>
@@ -18,9 +15,7 @@
     export default {
         name: 'Header',
 
-        props: [],
-
-        computed: {},
+        props: ['app'],
 
         components: {
             FontAwesomeIcon

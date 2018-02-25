@@ -12,6 +12,10 @@
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+
+    <script type="text/javascript">
+        window.__INITIAL_STATE__ = "{!! addslashes(json_encode($state)) !!}";
+    </script>
 </head>
 <body>
 

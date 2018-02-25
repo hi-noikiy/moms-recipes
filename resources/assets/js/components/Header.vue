@@ -4,8 +4,8 @@
             <span class="font-semibold text-3xl pl-2">{{ app.name }}</span>
         </div>
         <div class="block">
-            <router-link tag="button" to='/' v-show="loggedin" @click="logout" class="bg-transparent hover:bg-grey-dark text-grey-dark font-semibold hover:text-white py-2 px-4 border border-grey-dark hover:border-transparent rounded">Logout</router-link>
-            <router-link tag="button" to="/login" v-show="!loggedin" @click="logout" class="bg-grey-dark hover:bg-transparent text-white font-semibold hover:text-grey-dark py-2 px-4 border hover:border-grey-dark rounded">Login</router-link>
+            <button v-show="loggedin" @click="logoutAndRedirect" class="bg-transparent hover:bg-grey-dark text-grey-dark font-semibold hover:text-white py-2 px-4 border border-grey-dark hover:border-transparent rounded">Logout</button>
+            <router-link tag="button" to="/login" v-show="!loggedin" class="bg-grey-dark hover:bg-transparent text-white font-semibold hover:text-grey-dark py-2 px-4 border hover:border-grey-dark rounded">Login</router-link>
         </div>
     </nav>
 </template>
@@ -25,9 +25,14 @@
         },
 
         methods: {
-            ...mapActions({
-                logout: AUTH_LOGOUT
-            })
+            ...mapActions([AUTH_LOGOUT]),
+            logoutAndRedirect () {
+                const { username, password } = this;
+
+                this.AUTH_LOGOUT({ username, password }).then(() => {
+                    this.$router.push('/');
+                });
+            }
         },
 
         computed: {

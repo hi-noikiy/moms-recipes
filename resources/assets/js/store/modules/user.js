@@ -66,6 +66,10 @@ const mutations = {
     },
     [AUTH_LOGOUT]: (state) => {
         state.status = 'guest';
+        state.token = '';
+        state.name = '';
+        state.email = '';
+        state.id = null;
     },
     [AUTH_SUCCESS]: (state, token) => {
         state.status = 'success';

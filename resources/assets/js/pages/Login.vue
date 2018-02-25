@@ -55,8 +55,6 @@
 
                 this.AUTH_LOGIN({ username, password }).then(() => {
                     this.$router.push('/');
-                }).catch((err) => {
-
                 });
             }
         },

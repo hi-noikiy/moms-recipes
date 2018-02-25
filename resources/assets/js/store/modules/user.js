@@ -3,9 +3,9 @@ import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_SUCCESS, AUTH_ERROR, USER_REQUEST } from 
 const state = {
     token: localStorage.getItem('user-token') || '',
     status: '',
-    name: '',
-    email: '',
-    id: null,
+    name: localStorage.getItem('user-name') || '',
+    email: localStorage.getItem('user-email') || '',
+    id: localStorage.getItem('user-id') || null,
 }
 
 const getters = {
@@ -38,6 +38,9 @@ const actions = {
         return new Promise((resolve, reject) => {
             commit(AUTH_LOGOUT);
             localStorage.removeItem('user-token');
+            localStorage.removeItem('user-name');
+            localStorage.removeItem('user-email');
+            localStorage.removeItem('user-id');
             delete axios.defaults.headers.common['Authorization'];
             resolve();
         })
@@ -46,6 +49,9 @@ const actions = {
         axios({ url: 'api/user', method: 'GET' })
             .then(response => {
                 const user = response.data;
+                localStorage.setItem('user-name', user.name);
+                localStorage.setItem('user-email', user.email);
+                localStorage.setItem('user-id', user.id);
                 commit(USER_REQUEST, user);
             })
             .catch(err => {

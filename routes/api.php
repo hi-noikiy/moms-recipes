@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-// SPA login routes
+// SPA login route
 Route::post('/login', '\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken')
         ->middleware('client.grants:password', 'client.details')
         ->name('login');
@@ -22,14 +22,8 @@ Route::group([
     'middleware' => 'auth:api',
 ], function () {
     Route::get('/user', function (Request $request) {
-        return $request->user();
+        return auth()->user();
     });
 
-    Route::post('/logout', '\Laravel\Passport\Http\Controllers\AuthorizedAccessTokenController@destroy');
-
-    // // CRUD for authorized external clients when a third party wants to access our users their private data.
-    // Route::post('/oauth/tokens', '\Laravel\Passport\Http\Controllers\AuthorizedAccessTokenController@forUser');
-    // Route::post('/oauth/token/create', '\Laravel\Passport\Http\Controllers\AccessTokenController@issueToken');
-    // Route::post('/oauth/token/refresh', '\Laravel\Passport\Http\Controllers\TransientTokenController@refresh');
-    // Route::post('/oauth/tokens/{token_id}/delete', '\Laravel\Passport\Http\Controllers\AuthorizedAccessTokenController@destroy');
+    Route::get('/logout', 'Auth\LogoutController@logout')->name('logout');
 });

@@ -60,5 +60,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'client.grants' => \App\Http\Middleware\AcceptGrantType::class,
         'client.details' => \App\Http\Middleware\InjectClientDetails::class,
+        'verifycsrf' => \App\Http\Middleware\VerifyCsrfToken::class,
     ];
 }

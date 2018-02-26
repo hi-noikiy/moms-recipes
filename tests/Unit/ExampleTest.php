@@ -14,6 +14,13 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-        $this->assertTrue(true);
+        $response = $this->post(route('login'), [
+            'username' => 'alex.ciarlillo@gmail.com',
+            'password' => 'password',
+            'grant_type' => 'password'
+        ]);
+
+        $response = $this->get('/api/logout');
+        dd($response);
     }
 }

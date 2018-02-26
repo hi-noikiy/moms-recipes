@@ -1,4 +1,4 @@
-import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_SUCCESS, AUTH_ERROR, USER_REQUEST } from '~/store/mutation-types'
+import { AUTH_LOGIN, AUTH_LOGOUT, AUTH_LOGGED_OUT, AUTH_SUCCESS, AUTH_ERROR, USER_REQUEST } from '~/store/mutation-types'
 
 const state = {
     token: localStorage.getItem('user-token') || '',
@@ -36,14 +36,26 @@ const actions = {
     },
     [AUTH_LOGOUT]: ({ commit, dispatch }) => {
         return new Promise((resolve, reject) => {
-            commit(AUTH_LOGOUT);
+            axios({ url: 'api/logout', method: 'GET' })
+                .then(response => {
+                    dispatch(AUTH_LOGGED_OUT);
+                    resolve();
+                })
+                .catch(err => {
+                    reject(err);
+                })
+        });
+    },
+    [AUTH_LOGGED_OUT]: ({ commit, dispatch }) => {
+        return new Promise((resolve, reject) => {
+            commit(AUTH_LOGGED_OUT);
             localStorage.removeItem('user-token');
             localStorage.removeItem('user-name');
             localStorage.removeItem('user-email');
             localStorage.removeItem('user-id');
             delete axios.defaults.headers.common['Authorization'];
             resolve();
-        })
+        });
     },
     [USER_REQUEST]: ({ commit }) => {
         axios({ url: 'api/user', method: 'GET' })
@@ -64,7 +76,7 @@ const mutations = {
     [AUTH_LOGIN]: (state) => {
         state.status = 'loading';
     },
-    [AUTH_LOGOUT]: (state) => {
+    [AUTH_LOGGED_OUT]: (state) => {
         state.status = 'guest';
         state.token = '';
         state.name = '';
